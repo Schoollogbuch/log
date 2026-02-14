@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #3b82f6;
+}
+
+/* Saisonale Designs */
+.theme-winter {
+  --primary: #3b82f6;
+  background: linear-gradient(to bottom, #eff6ff, #dbeafe);
+  color: #1e3a8a;
+}
+
+.theme-summer {
+  --primary: #ef4444;
+  background: linear-gradient(to bottom, #fff1f2, #ffe4e6);
+  color: #881337;
+}
+
+/* Lichterkette Animation */
+.lights {
+  height: 15px;
+  background: repeating-linear-gradient(90deg, #ff0000 0px, #ff0000 20px, #00ff00 20px, #00ff00 40px, #ffff00 40px, #ffff00 60px);
+  width: 100%;
+  opacity: 0.7;
+  filter: blur(1px);
+}
