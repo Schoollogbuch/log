@@ -10,20 +10,28 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
+  // Ersetze deine handleLogin Funktion durch diese:
+const handleLogin = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setError("");
 
-    // Die wichtige Domain-Prüfung
-    // Später können wir hier eine Liste von erlaubten Domains hinzufügen
-    const allowedDomains = ["@cskiel.org"];
-    const isAllowed = allowedDomains.some((domain) => email.endsWith(domain));
+  // Domain-Check bleibt
+  if (!email.endsWith("@cskiel.org")) {
+    setError("Nur @cskiel.org erlaubt!");
+    return;
+  }
 
-    if (!isAllowed) {
-      setError("Zugriff verweigert. Nur E-Mails von @cskiel.org sind aktuell erlaubt.");
-      return;
-    }
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
 
+  if (error) {
+    setError("Login fehlgeschlagen: " + error.message);
+  } else {
+    router.push("/dashboard");
+  }
+};
     // Für den Prototyp: Wenn Passwort nicht leer, lass ihn rein
     if (password.length < 6) {
       setError("Das Passwort muss mindestens 6 Zeichen lang sein.");
